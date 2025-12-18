@@ -1,4 +1,5 @@
 #include "Baum.h"
+#include <vector>
 using namespace std;
 Baum::Baum(){}
 int Baum::add(double var, unsigned int id, bool left) {
@@ -54,7 +55,17 @@ int Baum::Himmel() {
 bool Baum::del(unsigned int id) {
 	if (id < arr.size()) {
 		if (arr[id].hei == Himmel()) {
-			arr.erase(id);
+			Knoten* upp = arr[id].up;
+			if (upp->left->id == id) {
+				upp->left = nullptr;
+			}
+			else if (upp->right->id == id) {
+				upp->right = nullptr;
+			}
+			arr.erase(arr.begin()+id);
+			
+			return 1;
 		}
 	}
+	else { return 0; }
 }
