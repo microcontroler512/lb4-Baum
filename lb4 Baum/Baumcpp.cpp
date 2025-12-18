@@ -57,12 +57,18 @@ bool Baum::del(unsigned int id) {
 	if (id < arr.size()) {
 		if ((arr[id].left == nullptr) && (arr[id].right == nullptr)) {
 			Knoten* upp = arr[id].up;
-			if (upp->left->id == id) {
-				upp->left = nullptr;
+			if(upp->left==nullptr){
+				if (upp->right->id == id) {
+					upp->right = nullptr;
+				}
 			}
-			else if (upp->right->id == id) {
-				upp->right = nullptr;
+			else{
+				if (upp->left->id == id) {
+					upp->left = nullptr;
+				}
 			}
+			
+			
 			arr.erase(arr.begin()+id);
 			
 			return 1;
