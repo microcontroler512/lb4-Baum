@@ -18,6 +18,7 @@ public:
 	Baum();
 	int add(double var, unsigned int id, bool left);
 	int Himmel();
+	bool del(unsigned int id);
 	
 	
 

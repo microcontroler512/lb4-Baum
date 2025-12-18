@@ -1,14 +1,14 @@
 #include "Baum.h"
+using namespace std;
 Baum::Baum(){}
 int Baum::add(double var, unsigned int id, bool left) {
 
 	Knoten knot;
 	knot.value = var;
 	knot.id = arr.size();
-	knot.hei = 1;
 	
 	if (arr.size() == 0) {
-		
+		knot.hei = 1;
 		arr.push_back(knot);
 		return 0;
 	}
@@ -16,7 +16,7 @@ int Baum::add(double var, unsigned int id, bool left) {
 	if (id < arr.size()) {
 		
 		if (left) {
-			if (arr[id].left = nullptr) {
+			if (arr[id].left == nullptr) {
 				arr[id].left = &knot;
 				knot.hei = arr[id].hei +1;
 				arr.push_back(knot);
@@ -28,7 +28,7 @@ int Baum::add(double var, unsigned int id, bool left) {
 		}
 
 		else {
-			if (arr[id].right = nullptr) {
+			if (arr[id].right == nullptr) {
 				arr[id].right = &knot;
 				knot.hei = arr[id].hei+1 ;
 				arr.push_back(knot);
@@ -50,4 +50,11 @@ int Baum::Himmel() {
 		}
 	}
 	return max;
+}
+bool Baum::del(unsigned int id) {
+	if (id < arr.size()) {
+		if (arr[id].hei == Himmel()) {
+			arr.erase(id);
+		}
+	}
 }
