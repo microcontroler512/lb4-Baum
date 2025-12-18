@@ -9,7 +9,7 @@ int main()
 	baum.add(101, 0, 1);
 	
 	int c = baum.add(11, 0, 1);
-	int b = baum.add(12, 1, 1);
+	int b = baum.add(-12, 1, 1);
 	int a = baum.add(13, 2, 1);
 	cout<<baum.del(a)<<endl;
 	
@@ -19,6 +19,8 @@ int main()
 	}
 	cout << baum.minB() << endl;
 	cout << baum.maxB() << endl;
+	cout << baum.finde(101) << endl;
+	
 
 	
 }

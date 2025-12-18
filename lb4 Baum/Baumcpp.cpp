@@ -105,3 +105,14 @@ double Baum::minB() {
 	}
 	return max;
 }
+bool Baum::finde(double var) {
+	for (int i = 0; i < arr.size(); i++) {
+		if (arr[i].value == var) {
+			return 1;
+		}
+	}
+	return 0;
+}
+Baum::~Baum() {
+	arr.clear();
+}

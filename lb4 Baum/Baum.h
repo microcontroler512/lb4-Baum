@@ -16,11 +16,14 @@ private:
 public:
 	vector<Knoten> arr;
 	Baum();
+	Baum(const Baum var);
+	~Baum();
 	int add(double var, unsigned int id, bool left);
 	int Himmel();
 	bool del(unsigned int id);
 	double maxB();
 	double minB();
+	bool finde(double var);
 	
 	
 
