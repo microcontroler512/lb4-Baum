@@ -5,7 +5,8 @@ int Baum::add(double var, unsigned int id, bool left) {
 	Knoten knot;
 	knot.value = var;
 	knot.id = arr.size();
-	//
+	knot.hei = 1;
+	
 	if (arr.size() == 0) {
 		
 		arr.push_back(knot);
