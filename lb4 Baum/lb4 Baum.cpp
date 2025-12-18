@@ -17,7 +17,8 @@ int main()
 		cout << baum.arr[i].value << endl;
 		
 	}
-
+	cout << baum.minB() << endl;
+	cout << baum.maxB() << endl;
 
 	
 }

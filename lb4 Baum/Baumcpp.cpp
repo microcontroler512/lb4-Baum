@@ -16,12 +16,14 @@ int Baum::add(double var, unsigned int id, bool left) {
 	}
 	
 	if (id < arr.size()) {
-		knot.up = &arr[id];
+		
 		if (left) {
 			if (arr[id].left == nullptr) {
-				arr[id].left = &knot;
+				
 				knot.hei = arr[id].hei +1;
 				arr.push_back(knot);
+				arr[id].left = &arr[knot.id];
+				arr[knot.id].up = &arr[id];
 			}
 			else {
 				return -1;
@@ -31,10 +33,12 @@ int Baum::add(double var, unsigned int id, bool left) {
 
 		else {
 			if (arr[id].right == nullptr) {
-				arr[id].right = &knot;
+				
+				
 				knot.hei = arr[id].hei+1 ;
 				arr.push_back(knot);
-				
+				arr[id].right = &arr[knot.id];
+				arr[knot.id].up = &arr[id];
 			}
 			else {
 				return -1;
@@ -55,24 +59,49 @@ int Baum::Himmel() {
 }
 bool Baum::del(unsigned int id) {
 	if (id < arr.size()) {
-		if ((arr[id].left == nullptr) && (arr[id].right == nullptr)) {
+		if ((arr[id].left == nullptr)&&(arr[id].right == nullptr)) {
+
 			Knoten* upp = arr[id].up;
-			if(upp->left==nullptr){
-				if (upp->right->id == id) {
-					upp->right = nullptr;
-				}
+			if (upp->left == nullptr) {
+				upp->right = nullptr;
 			}
-			else{
+			else if (upp->right == nullptr) {
+				upp->left = nullptr;
+			}
+			else {
 				if (upp->left->id == id) {
 					upp->left = nullptr;
 				}
+				else if (upp->right->id == id) {
+					upp->right = nullptr;
+				}
 			}
-			
-			
-			arr.erase(arr.begin()+id);
-			
+
+
+
+			arr.erase(arr.begin() + id);
+
 			return 1;
+
 		}
 	}
 	return 0; 
+}
+double Baum::maxB() {
+	double max = arr[0].value;
+	for (int i = 0; i < arr.size(); i++) {
+		if (arr[i].value > max) {
+			max = arr[i].value;
+		}
+	}
+	return max;
+}
+double Baum::minB() {
+	double max = arr[0].value;
+	for (int i = 0; i < arr.size(); i++) {
+		if (arr[i].value < max) {
+			max = arr[i].value;
+		}
+	}
+	return max;
 }
