@@ -10,7 +10,6 @@ int Baum::add(double var, unsigned int id, bool left) {
 	if (arr.size() == 0) {
 		
 		arr.push_back(knot);
-		knot.hei = 1;
 		return 0;
 	}
 	
