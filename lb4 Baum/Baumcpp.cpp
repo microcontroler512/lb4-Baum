@@ -7,6 +7,7 @@ int Baum::add(double var, unsigned int id, bool left) {
 	Knoten knot;
 	knot.value = var;
 	knot.id = arr.size();
+
 	
 	if (arr.size() == 0) {
 		knot.hei = 1;
@@ -15,7 +16,7 @@ int Baum::add(double var, unsigned int id, bool left) {
 	}
 	
 	if (id < arr.size()) {
-		
+		knot.up = &arr[id];
 		if (left) {
 			if (arr[id].left == nullptr) {
 				arr[id].left = &knot;
@@ -54,7 +55,7 @@ int Baum::Himmel() {
 }
 bool Baum::del(unsigned int id) {
 	if (id < arr.size()) {
-		if (arr[id].hei == Himmel()) {
+		if ((arr[id].left == nullptr) && (arr[id].right == nullptr)) {
 			Knoten* upp = arr[id].up;
 			if (upp->left->id == id) {
 				upp->left = nullptr;
@@ -67,5 +68,5 @@ bool Baum::del(unsigned int id) {
 			return 1;
 		}
 	}
-	else { return 0; }
+	return 0; 
 }
