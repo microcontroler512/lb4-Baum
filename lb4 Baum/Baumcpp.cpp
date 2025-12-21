@@ -1,22 +1,23 @@
 #include "Baum.h"
-#include <vector>
+
 using namespace std;
 Baum::Baum() {}
 int Baum::add(double var, unsigned int id, bool left) {
 
 	Knoten knot;
 	knot.value = var;
-	knot.id = arr.size();
+	knot.id = len;
 
-
-	if (arr.size() == 0) {
+	
+	if (len == 0) {
 		knot.hei = 1;
 		knot.x = 60;
-		arr.push_back(knot);
+		arr[len]=knot;
+		len++;
 		return 0;
 	}
 
-	if (id < arr.size()) {
+	else if (id < len) {
 
 		if (left) {
 			if (arr[id].left == nullptr) {
@@ -28,7 +29,8 @@ int Baum::add(double var, unsigned int id, bool left) {
 					space /= 2;
 				}
 				knot.x = arr[id].x - space;
-				arr.push_back(knot);
+				arr[len]=knot;
+				len++;
 				arr[id].left = &arr[knot.id];
 				arr[knot.id].up = &arr[id];
 			}
@@ -49,7 +51,8 @@ int Baum::add(double var, unsigned int id, bool left) {
 					space /= 2;
 				}
 				knot.x = arr[id].x + space;
-				arr.push_back(knot);
+				arr[len]=knot;
+				len++;
 				arr[id].right = &arr[knot.id];
 				arr[knot.id].up = &arr[id];
 			}
@@ -63,7 +66,7 @@ int Baum::add(double var, unsigned int id, bool left) {
 }
 int Baum::Himmel() {
 	int max = 0;
-	for (int i = 0; i < arr.size(); i++) {
+	for (int i = 0; i < len; i++) {
 		if (arr[i].hei > max) {
 			max = arr[i].hei;
 		}
@@ -71,7 +74,7 @@ int Baum::Himmel() {
 	return max;
 }
 bool Baum::del(unsigned int id) {
-	if (id < arr.size()) {
+	if (id < len) {
 		if ((arr[id].left == nullptr) && (arr[id].right == nullptr)) {
 
 			Knoten* upp = arr[id].up;
@@ -89,10 +92,10 @@ bool Baum::del(unsigned int id) {
 					upp->right = nullptr;
 				}
 			}
+			arr[id].value = mull;
 
 
-
-			arr.erase(arr.begin() + id);
+		
 
 			return 1;
 
@@ -102,7 +105,7 @@ bool Baum::del(unsigned int id) {
 }
 double Baum::maxB() {
 	double max = arr[0].value;
-	for (int i = 0; i < arr.size(); i++) {
+	for (int i = 0; i < len; i++) {
 		if (arr[i].value > max) {
 			max = arr[i].value;
 		}
@@ -111,7 +114,7 @@ double Baum::maxB() {
 }
 double Baum::minB() {
 	double max = arr[0].value;
-	for (int i = 0; i < arr.size(); i++) {
+	for (int i = 0; i < len; i++) {
 		if (arr[i].value < max) {
 			max = arr[i].value;
 		}
@@ -128,8 +131,37 @@ void gotoxy(int x, int y) {
 }
 
 void Baum::print() {
-	for (int i = 0; i < arr.size(); i++) {
-		gotoxy(arr[i].x, arr[i].hei * 2);
-		cout << arr[i].value;
+	for (int i = 0; i < len; i++) {
+		if (arr[i].value != mull) {
+			gotoxy(arr[i].x, arr[i].hei * 2);
+			cout << arr[i].value;
+		}
 	}
 }
+
+void Baum::DSF(Knoten* knot) {
+	
+	if (knot == nullptr) {
+		return;
+	}
+
+	cout << knot->id;
+	DSF(knot->left);
+		
+	DSF(knot->right);
+	
+}
+void Baum::DSF_drucker(Knoten* knot) {
+
+	if (knot == nullptr) {
+		return;
+	}
+
+	gotoxy(knot->x, knot->hei * 2);
+	cout << knot->value;
+	DSF(knot->left);
+	DSF(knot->right);
+
+}
+	
+	
